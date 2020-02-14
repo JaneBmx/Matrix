@@ -7,12 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class MatrixReader implements Reader {
+public class TextReader implements Reader {
     private static class Holder {
-        private static final reader.Reader instance = new MatrixReader();
+        private static final reader.Reader instance = new TextReader();
     }
 
-    public static Reader getInstance(){
+    public static Reader getInstance() {
         return Holder.instance;
     }
 
@@ -24,12 +24,10 @@ public class MatrixReader implements Reader {
             while ((line = reader.readLine()) != null) {
                 text.append(line).append("\n");
             }
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             throw new ReadException("File not found.");
-            //TODO logger warn
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new ReadException("some msg");
-            //TODO Logger warn
         }
         return text.toString().trim();
     }

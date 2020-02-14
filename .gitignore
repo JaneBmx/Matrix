@@ -1,2 +1,4 @@
 Matrix.iml
 .idea
+out
+src/$redundant

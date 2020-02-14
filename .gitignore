@@ -1,4 +1,6 @@
 Matrix.iml
 .idea
 out
-src/$redundant
+Matrix.txt
+src/main/java/$redundant
+target

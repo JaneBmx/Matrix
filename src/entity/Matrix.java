@@ -15,5 +15,15 @@ public class Matrix {
         this.matrix = matrix;
     }
 
-
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int k = 0; k < matrix[i].length; k++) {
+                sb = sb.append(matrix[i][k]).append(" ");
+            }
+            sb = sb.append("\n");
+        }
+        return sb.toString();
+    }
 }

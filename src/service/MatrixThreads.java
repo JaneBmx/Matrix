@@ -42,7 +42,7 @@ class Test {
         Semaphore sem = new Semaphore(n);
         Matrix mat = new Matrix(n);
 
-        new Thread(new MatrixThreads(mat,sem));
+        new Thread(new MatrixThreads(mat, sem));
     }
 
 }

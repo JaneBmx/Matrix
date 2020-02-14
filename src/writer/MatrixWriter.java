@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MatrixWriter implements Writer {
     private static final String DEFAULT_FILE = "Matrix.txt";
 
-    public static void write(Matrix matrix) throws WriteException {
+    public void write(Matrix matrix) throws WriteException {
         int[][] matrixForWrite = matrix.getMatrix();
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(DEFAULT_FILE), true));

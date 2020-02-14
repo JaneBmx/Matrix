@@ -1,10 +1,28 @@
 package entity;
 
+import static validator.MatrixValidation.*;
+
 public class Matrix {
+    private static final int DEFAULT_MATRIX_SIZE = 5;
     private int[][] matrix;
 
-    public Matrix(int size) {
-        matrix = new int[size][size];
+    private Matrix() {
+    }
+
+    private static class Holder {
+        private static final Matrix INSTANCE = new Matrix();
+    }
+
+    public static Matrix getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    public void fillMatrix(int size) {
+        if (isValidMatrixSize(size)) {
+            matrix = new int[size][size];
+        } else {
+            matrix = new int[DEFAULT_MATRIX_SIZE][DEFAULT_MATRIX_SIZE];
+        }
     }
 
     public int[][] getMatrix() {
@@ -17,12 +35,12 @@ public class Matrix {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < matrix.length; i++) {
             for (int k = 0; k < matrix[i].length; k++) {
-                sb = sb.append(matrix[i][k]).append(" ");
+                sb.append(matrix[i][k]).append(" ");
             }
-            sb = sb.append("\n");
+            sb.append("\n");
         }
         return sb.toString();
     }

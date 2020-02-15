@@ -4,7 +4,8 @@ import static validator.MatrixValidation.*;
 
 public class Matrix {
     private static final int DEFAULT_MATRIX_SIZE = 5;
-    private int[][] matrix;
+    private int[][] intMatrix;
+    private boolean[][] boolMatrix;
 
     private Matrix() {
     }
@@ -19,26 +20,36 @@ public class Matrix {
 
     public void fillMatrix(int size) {
         if (isValidMatrixSize(size)) {
-            matrix = new int[size][size];
+            intMatrix = new int[size][size];
+            boolMatrix = new boolean[size][size];
         } else {
-            matrix = new int[DEFAULT_MATRIX_SIZE][DEFAULT_MATRIX_SIZE];
+            intMatrix = new int[DEFAULT_MATRIX_SIZE][DEFAULT_MATRIX_SIZE];
+            boolMatrix = new boolean[DEFAULT_MATRIX_SIZE][DEFAULT_MATRIX_SIZE];
         }
     }
 
-    public int[][] getMatrix() {
-        return matrix;
+    public int[][] getIntMatrix() {
+        return intMatrix;
     }
 
-    public void setMatrix(int[][] matrix) {
-        this.matrix = matrix;
+    public boolean[][] getBoolMatrix() {
+        return boolMatrix;
+    }
+
+    public void setIntMatrix(int[][] intMatrix) {
+        this.intMatrix = intMatrix;
+    }
+
+    public void setBoolMatrix(boolean[][] boolMatrix) {
+        this.boolMatrix = boolMatrix;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < matrix.length; i++) {
-            for (int k = 0; k < matrix[i].length; k++) {
-                sb.append(matrix[i][k]).append(" ");
+        for (int i = 0; i < intMatrix.length; i++) {
+            for (int k = 0; k < intMatrix[i].length; k++) {
+                sb.append(intMatrix[i][k]).append(" ");
             }
             sb.append("\n");
         }

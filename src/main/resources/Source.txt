@@ -1,0 +1,3 @@
+Matrix info:
+N = 6;
+Y = 5;

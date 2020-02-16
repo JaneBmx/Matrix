@@ -8,7 +8,7 @@ import java.util.Random;
 import static validator.MatrixValidation.*;
 
 public class MatrixService {
-    private final static Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
 
     private static class Holder {
         private static final MatrixService INSTANCE = new MatrixService();
@@ -18,9 +18,9 @@ public class MatrixService {
         return Holder.INSTANCE;
     }
 
-    public void writeElement(Matrix matrix, int index, int element) throws ServiceException {
+    public void fillDiagonalElement(Matrix matrix, int index, int element) throws ServiceException {
         if (isValidMatrix(matrix) && isValidElement(matrix, index)) {
-            matrix.getMatrix()[index][index] = element;
+            matrix.getIntMatrix()[index][index] = element;
         } else {
             throw new ServiceException("Invalid data.");
         }
@@ -28,14 +28,27 @@ public class MatrixService {
 
     public void fillRandomElement(Matrix matrix, int index, int element) throws ServiceException {
         if (isValidMatrix(matrix)) {
-            int randomIndex = getRandomIndex(index, matrix.getMatrix().length);
-            boolean isRow = RANDOM.nextBoolean();
+            int randomIndex;
+            boolean checkingIndex;
 
-            if (isRow) {
-                matrix.getMatrix()[index][randomIndex] = element;
-            } else {
-                matrix.getMatrix()[randomIndex][index] = element;
-            }
+            int index1;
+            int index2;
+
+            do {
+                randomIndex = randomizeIndex(index, matrix.getIntMatrix().length);
+
+                if (RANDOM.nextBoolean()) {
+                    checkingIndex = matrix.getBoolMatrix()[randomIndex][index];
+                    index1 = randomIndex;
+                    index2 = index;
+                } else {
+                    checkingIndex = matrix.getBoolMatrix()[index][randomIndex];
+                    index1 = index;
+                    index2 = randomIndex;
+                }
+            } while (checkingIndex);
+            matrix.getBoolMatrix()[index1][index2] = true;
+            matrix.getIntMatrix()[index1][index2] = element;
         } else {
             throw new ServiceException("Invalid data.");
         }
@@ -44,19 +57,18 @@ public class MatrixService {
     public int getSum(Matrix matrix, int diagonalIndex) throws ServiceException {
         if (isValidElement(matrix, diagonalIndex)) {
             int sum = 0;
-            for (int i = 0; i < matrix.getMatrix().length; i++) {
-                sum += matrix.getMatrix()[i][diagonalIndex];
-                sum += matrix.getMatrix()[diagonalIndex][i];
+            for (int i = 0; i < matrix.getIntMatrix().length; i++) {
+                sum += matrix.getIntMatrix()[i][diagonalIndex];
+                sum += matrix.getIntMatrix()[diagonalIndex][i];
             }
-            return sum - matrix.getMatrix()[diagonalIndex][diagonalIndex];
+            return sum - matrix.getIntMatrix()[diagonalIndex][diagonalIndex];
         }
-        throw new ServiceException("Illegal size of matrix" + matrix.getMatrix().length + ", and index " + diagonalIndex);
+        throw new ServiceException("Illegal size of matrix" + matrix.getIntMatrix().length + ", and index " + diagonalIndex);
     }
 
-    public int getRandomIndex(int n, int size) {
+    public int randomizeIndex(int n, int size) {
         int randomNumber = n;
         while (randomNumber == n) {
-            //randomNumber = (int) (Math.random() * size - 1);
             randomNumber = RANDOM.nextInt(size);
         }
         return randomNumber;

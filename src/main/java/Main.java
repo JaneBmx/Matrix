@@ -1,5 +1,3 @@
-package runner;
-
 import entity.Matrix;
 import entity.MatrixThread;
 import exception.ServiceException;
@@ -14,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 
-public class Runner {
+public class Main {
     private static final Writer WRITER = TextWriter.getInstance();
     private static final Reader READER = TextReader.getInstance();
     private static int time = 2;
@@ -25,7 +23,7 @@ public class Runner {
         Matrix matrix = Matrix.getInstance();
         matrix.fillMatrix(5);
         int matrixSize = 5;
-        initArrayList(matrix.getMatrix().length);
+        initArrayList(matrix.getIntMatrix().length);
 
         int iterations = matrixSize * (matrixSize - 1);
 
@@ -47,6 +45,7 @@ public class Runner {
                 e.printStackTrace();
             }
             WRITER.writeInFile("\n" + Matrix.getInstance().toString() + "\n", null);
+            matrix.refreshBoolMatrix();
             initArrayList(5);
         }
         WRITER.writeInConsole("Done! Check Matrix.txt");

@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class TextReader implements Reader {
+    private static final String DEFAULT_PATH = "src/main/resources/Source.txt";
+
     private static class Holder {
         private static final reader.Reader instance = new TextReader();
     }
@@ -17,17 +19,16 @@ public class TextReader implements Reader {
     }
 
     @Override
-    public String read(String path) throws ReadException {
+    public String read(String path) {
+        path = path==null?DEFAULT_PATH:path;
         StringBuffer text = new StringBuffer();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 text.append(line).append("\n");
             }
-        } catch (FileNotFoundException e) {
-            throw new ReadException("File not found.");
         } catch (IOException e) {
-            throw new ReadException("some msg");
+            throw new RuntimeException("some msg");
         }
         return text.toString().trim();
     }

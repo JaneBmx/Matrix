@@ -1,6 +1,6 @@
 package entity;
 
-import static validator.MatrixValidation.*;
+import static validator.MatrixValidator.*;
 
 public class Matrix {
     private static final int DEFAULT_MATRIX_SIZE = 5;

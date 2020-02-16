@@ -2,16 +2,16 @@ package validator;
 
 import entity.Matrix;
 
-public class MatrixValidation {
+public class MatrixValidator {
     private static final int MIN_MATRIX_SIZE = 1;
 
     public static boolean isValidMatrix(Matrix matrix) {
-        return matrix != null && matrix.getMatrix().length > MIN_MATRIX_SIZE;
+        return matrix != null && matrix.getIntMatrix().length > MIN_MATRIX_SIZE;
     }
 
     public static boolean isValidElement(Matrix matrix, int index) {
         if (isValidMatrix(matrix)) {
-            return index <= matrix.getMatrix().length;
+            return index <= matrix.getIntMatrix().length;
         }
         return false;
     }

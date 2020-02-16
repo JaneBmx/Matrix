@@ -1,6 +1,9 @@
 import entity.Matrix;
 import entity.MatrixThread;
+import exception.ReadException;
 import exception.ServiceException;
+import parser.MatrixInfoParser;
+import parser.Parser;
 import reader.Reader;
 import reader.TextReader;
 import writer.TextWriter;
@@ -15,17 +18,19 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final Writer WRITER = TextWriter.getInstance();
     private static final Reader READER = TextReader.getInstance();
+    private static final Parser PARSER = MatrixInfoParser.getInstance();
     private static int time = 2;
     private static final ArrayList<Integer> permits = new ArrayList<>();
 
-
     public static void main(String[] args) {
+        int[] params = PARSER.parse(READER.read(null));
+
         Matrix matrix = Matrix.getInstance();
-        matrix.fillMatrix(5);
+        matrix.fillMatrix(params[0]);
         int matrixSize = 5;
         initArrayList(matrix.getIntMatrix().length);
 
-        int iterations = matrixSize * (matrixSize - 1);
+        int iterations = params[0] * params[1];
 
         CountDownLatch cdl = null;
         for (int i = 0; i < iterations; i++) {

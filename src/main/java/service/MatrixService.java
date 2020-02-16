@@ -5,7 +5,7 @@ import exception.ServiceException;
 
 import java.util.Random;
 
-import static validator.MatrixValidation.*;
+import static validator.MatrixValidator.*;
 
 public class MatrixService {
     private static final Random RANDOM = new Random();

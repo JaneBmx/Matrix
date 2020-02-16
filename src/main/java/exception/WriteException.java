@@ -1,8 +1,7 @@
 package exception;
 
 public class WriteException extends Exception {
-    public WriteException() {
-    }
+    public WriteException() {    }
 
     public WriteException(String message) {
         super(message);

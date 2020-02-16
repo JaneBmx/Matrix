@@ -1,5 +1,5 @@
 package parser;
 
 public interface Parser {
-    int[]parse(String text);
+    int[] parse(String text);
 }

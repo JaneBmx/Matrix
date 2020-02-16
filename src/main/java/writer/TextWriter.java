@@ -1,17 +1,20 @@
 package writer;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class TextWriter implements Writer {
+    private static final Logger LOGGER = Logger.getLogger(TextWriter.class);
     private static final String DEFAULT_FILE = "Matrix.txt";
 
     private TextWriter() {
     }
 
     private static class Holder {
-        private final static Writer INSTANCE = new TextWriter();
+        private static final Writer INSTANCE = new TextWriter();
     }
 
     public static Writer getInstance() {
@@ -20,17 +23,10 @@ public class TextWriter implements Writer {
 
     public void writeInFile(String text, String path) {
         path = path == null ? DEFAULT_FILE : path;
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true));
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
             bufferedWriter.write(text);
-            bufferedWriter.close();
         } catch (IOException e) {
-            //log
-            e.printStackTrace();
+            LOGGER.warn("Info hasn't been wrote.");
         }
-    }
-
-    public void writeInConsole(String message) {
-        System.out.println(message);
     }
 }

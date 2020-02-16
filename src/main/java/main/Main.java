@@ -1,7 +1,9 @@
+package main;
+
 import entity.Matrix;
 import entity.MatrixThread;
-import exception.ReadException;
 import exception.ServiceException;
+import org.apache.log4j.Logger;
 import parser.MatrixInfoParser;
 import parser.Parser;
 import reader.Reader;
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
     private static final Writer WRITER = TextWriter.getInstance();
     private static final Reader READER = TextReader.getInstance();
     private static final Parser PARSER = MatrixInfoParser.getInstance();
@@ -47,13 +50,12 @@ public class Main {
                 cdl.await(time, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                e.printStackTrace();
+                LOGGER.warn("Thread has been interrupted", e);
             }
             WRITER.writeInFile("\n" + Matrix.getInstance().toString() + "\n", null);
             matrix.refreshBoolMatrix();
             initArrayList(5);
         }
-        WRITER.writeInConsole("Done! Check Matrix.txt");
     }
 
     private static void initArrayList(int size) {
@@ -63,12 +65,13 @@ public class Main {
     }
 
     private static int getNumber() throws ServiceException {
-        if (permits.size() > 0) {
+        if (!permits.isEmpty()) {
             Collections.shuffle(permits);
             int temp = permits.get(0);
             permits.remove(0);
             return temp;
         }
+        LOGGER.warn("No permits");
         throw new ServiceException("No permits.");
     }
 }

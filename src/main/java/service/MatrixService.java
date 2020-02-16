@@ -5,9 +5,12 @@ import exception.ServiceException;
 
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import static validator.MatrixValidator.*;
 
 public class MatrixService {
+    private static final Logger LOGGER = Logger.getLogger(MatrixService.class);
     private static final Random RANDOM = new Random();
 
     private static class Holder {
@@ -22,6 +25,7 @@ public class MatrixService {
         if (isValidMatrix(matrix) && isValidElement(matrix, index)) {
             matrix.getIntMatrix()[index][index] = element;
         } else {
+            LOGGER.warn("Invalid data");
             throw new ServiceException("Invalid data.");
         }
     }
@@ -30,13 +34,10 @@ public class MatrixService {
         if (isValidMatrix(matrix)) {
             int randomIndex;
             boolean checkingIndex;
-
             int index1;
             int index2;
-
             do {
                 randomIndex = randomizeIndex(index, matrix.getIntMatrix().length);
-
                 if (RANDOM.nextBoolean()) {
                     checkingIndex = matrix.getBoolMatrix()[randomIndex][index];
                     index1 = randomIndex;
@@ -50,6 +51,7 @@ public class MatrixService {
             matrix.getBoolMatrix()[index1][index2] = true;
             matrix.getIntMatrix()[index1][index2] = element;
         } else {
+            LOGGER.warn("Invalid data");
             throw new ServiceException("Invalid data.");
         }
     }
@@ -63,6 +65,7 @@ public class MatrixService {
             }
             return sum - matrix.getIntMatrix()[diagonalIndex][diagonalIndex];
         }
+        LOGGER.warn("Illegal size of matrix" + matrix.getIntMatrix().length + ", and index " + diagonalIndex);
         throw new ServiceException("Illegal size of matrix" + matrix.getIntMatrix().length + ", and index " + diagonalIndex);
     }
 

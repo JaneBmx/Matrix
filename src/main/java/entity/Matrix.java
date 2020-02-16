@@ -27,7 +27,7 @@ public class Matrix {
         refreshBoolMatrix();
     }
 
-    public void refreshBoolMatrix(){
+    public void refreshBoolMatrix() {
         boolMatrix = new boolean[intMatrix.length][intMatrix.length];
     }
 

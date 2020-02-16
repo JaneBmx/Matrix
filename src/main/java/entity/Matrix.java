@@ -21,11 +21,14 @@ public class Matrix {
     public void fillMatrix(int size) {
         if (isValidMatrixSize(size)) {
             intMatrix = new int[size][size];
-            boolMatrix = new boolean[size][size];
         } else {
             intMatrix = new int[DEFAULT_MATRIX_SIZE][DEFAULT_MATRIX_SIZE];
-            boolMatrix = new boolean[DEFAULT_MATRIX_SIZE][DEFAULT_MATRIX_SIZE];
         }
+        refreshBoolMatrix();
+    }
+
+    public void refreshBoolMatrix(){
+        boolMatrix = new boolean[intMatrix.length][intMatrix.length];
     }
 
     public int[][] getIntMatrix() {

@@ -24,13 +24,13 @@ public class MatrixThread extends Thread {
         start();
     }
 
+    @Override
     public void run() {
         try {
-            SERVICE.writeElement(MATRIX, diagElem, threadId);
+            SERVICE.fillDiagonalElement(MATRIX, diagElem, threadId);
             SERVICE.fillRandomElement(MATRIX, diagElem, threadId);
             int sum = SERVICE.getSum(MATRIX, diagElem);
-            String res = "thread: " + threadId + "; sum: " + sum + ";\n";
-            WRITER.writeInFile(res, null);
+            WRITER.writeInFile("thread: " + threadId + "; sum: " + sum + ";\n", null);
         } catch (ServiceException e) {
             e.printStackTrace();
         } finally {
